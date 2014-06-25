@@ -1,0 +1,9 @@
+name = ADPCA Custom Code
+description = Custom module for the ADPCA site containing enhancements
+package = adpca_custom
+core = 7.x
+
+files[] = adpca_custom.module
+files[] = include/config.inc
+
+dependencies = civicrm

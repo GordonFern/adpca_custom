@@ -1,0 +1,40 @@
+<?php
+
+require_once('include/config.inc');
+
+
+function adpca_custom_civicrm_buildForm($formName, &$form) {
+
+   if ($formName == "CRM_Contribute_Form_Contribution_Main") // Only want contribution pages
+   {
+      $form_id=CRM_Utils_Array::value('id',$_GET,'0');
+      $form_ids=ADPCAConstants::getForms();
+      if (array_key_exists($form_id,$form_ids)) // Only want contribution pages known about
+      {
+         $contrib_name= $form_ids[$form_id];
+
+         $config_file=ADPCA_CUSTOM_CONFIG_PATH . "/" . $contrib_name . ".defaults";
+         $fh=@fopen($config_file,"r");
+         if ($fh) // Only interested in pages that an existent defaults file
+         {
+            while(($line=fgets($fh)) != false)
+            {
+                $pairs=explode("=",$line);
+                $fields=ADPCAConstants::getFields();
+                $pairs[0] = trim($pairs[0]);
+                $pairs[1] = trim($pairs[1]);
+                if ( strlen($pairs[0]) > 0 )
+                   $defaults[$fields[$pairs[0]]]=$pairs[1];
+            }
+            $form->setDefaults($defaults);
+         }
+         @fclose($fh);
+
+      }
+   }
+
+}
+
+
+?>
+
