@@ -87,6 +87,8 @@ city						city-Primary
 postal_code					postal_code-Primary
 country						country-Primary
 state						state_province-Primary
+phone						phone_ext-Primary-1
+mobile						phone-Primary-2
 directory_view					custom_1
 suppress_mail_address				custom_4
 do_not_send_journal				custom_5
